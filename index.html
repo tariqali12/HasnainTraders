@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasnain Traders Store - Finest Quality Dates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #FAFAFA;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(139, 69, 19, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(139, 69, 19, 1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo h2 {
+            color: #DAA520;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #DAA520;
+        }
+
+        .nav-link.active {
+            color: #DAA520;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #DAA520;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #F5F5DC 0%, #FFF8DC 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 500px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #8B4513;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #DAA520, #FFD700);
+            color: #8B4513;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 100px 0;
+            background: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #F0F0F0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #DAA520;
+            margin-bottom: 1rem;
+        }
+
+        .order-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .order-btn:hover {
+            background: linear-gradient(45deg, #D2691E, #8B4513);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #F5F5DC 0%, #FFF8DC 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .features {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .feature h4 {
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature p {
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: #fff;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .contact-item h4 {
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            background: #F9F9F9;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .contact-form h4 {
+            color: #8B4513;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #DAA520;
+        }
+
+        .contact-form button {
+            width: 100%;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: linear-gradient(45deg, #D2691E, #8B4513);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #8B4513;
+            color: #fff;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            color: #DAA520;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            color: #E6E6E6;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #E6E6E6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #DAA520;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .social-links a {
+            color: #E6E6E6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #DAA520;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #A0522D;
+            color: #E6E6E6;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: #8B4513;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1rem 0;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero {
+                padding: 40px 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .products {
+                padding: 60px 0;
+            }
+
+            .about {
+                padding: 60px 0;
+            }
+
+            .contact {
+                padding: 60px 0;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🌴 Hasnain Traders</h2>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-scroll="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#products" class="nav-link" data-scroll="products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-scroll="about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-scroll="contact">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Premium Quality Dates</h1>
+                <p class="hero-subtitle">Discover the finest selection of authentic dates from around the world. Fresh, natural, and delivered to your doorstep.</p>
+                <button class="cta-button" data-scroll="products">Shop Now</button>
+            </div>
+            <div class="hero-image">
+                <!-- <img src="https://images.pexels.com/photos/4198019/pexels-photo-4198019.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Premium Dates" loading="lazy"> -->
+                <img src="Dates.png" alt="Premium Dates" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Our Premium Collection</h2>
+            <p class="section-subtitle">Choose from our carefully selected varieties of dates</p>
+            
+            <div class="products-grid" id="products-grid">
+                <div class="product-card" data-product="Aseel Khajoor">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/4198140/pexels-photo-4198140.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Aseel Khajoor" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Aseel Khajoor</h3>
+                        <p class="product-description">Sacred dates from Medina, known for their soft texture and rich flavor.</p>
+                        <p class="product-price">Rs.600/kg</p>
+                        <button class="order-btn" onclick="orderProduct('Aseel Khajoor', 'Rs.600/kg')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product="Fasli Khajoor">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/4198135/pexels-photo-4198135.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Fasli Khajoor" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Fasli Khajoor</h3>
+                        <p class="product-description">King of dates - large, soft, and incredibly sweet with caramel-like flavor.</p>
+                        <p class="product-price">Rs.600/kg</p>
+                        <button class="order-btn" onclick="orderProduct('Fasli Khajoor', 'Rs.600/kg')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product="Irani Khajoor">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/4198019/pexels-photo-4198019.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Irani Khajoor" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Irani Khajoor</h3>
+                        <p class="product-description">Golden dates from Saudi Arabia, crispy outside and soft inside.</p>
+                        <p class="product-price">Rs.600/kg</p>
+                        <button class="order-btn" onclick="orderProduct('Irani Khajoor', '$32/kg')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product="Yellow Chuwara">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/4198131/pexels-photo-4198131.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Yellow Chuwara" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Yellow Chuwara (Dried Dates)</h3>
+                        <p class="product-description">Golden yellow dates with firm texture and delicate sweetness.</p>
+                        <p class="product-price">Rs.300/kg</p>
+                        <button class="order-btn" onclick="orderProduct('Yellow Chuwara', 'Rs.300/kg')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product="Nar Chuawara">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/4198127/pexels-photo-4198127.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Nar Chuawara" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nar Chuwara (Dreid Dates)</h3>
+                        <p class="product-description">Dark dates from Medina with soft texture and rich, sweet taste.</p>
+                        <p class="product-price">Rs.300/kg</p>
+                        <button class="order-btn" onclick="orderProduct('Nar Chuawara', 'Rs.300/kg')">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-product="Black Chuwara">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/4198022/pexels-photo-4198022.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Black Chuwara" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Black Chuwara (Dried Dates)</h3>
+                        <p class="product-description">Sweet and tender dates with honey-like flavor and soft texture.</p>
+                        <p class="product-price">Rs.300/kg</p>
+                        <button class="order-btn" onclick="orderProduct('Black Chuwara', 'Rs.300/kg')">Order Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Our Store</h2>
+                    <p>Welcome to Hasnain Traders, your trusted source for the finest quality dates from around the world. For over two decades, we have been dedicated to bringing you authentic, fresh, and premium dates directly from renowned date-growing regions.</p>
+                    
+                    <p>Our journey began with a simple mission: to share the natural goodness and exquisite taste of premium dates with families everywhere. We work directly with trusted farmers and suppliers to ensure that every date meets our stringent quality standards.</p>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <h4>🌟 Premium Quality</h4>
+                            <p>Hand-selected dates from the finest groves</p>
+                        </div>
+                        <div class="feature">
+                            <h4>🚚 Fresh Delivery</h4>
+                            <p>Direct from source to your doorstep</p>
+                        </div>
+                        <div class="feature">
+                            <h4>🛡️ Quality Guaranteed</h4>
+                            <p>100% satisfaction or money back</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.pexels.com/photos/4198023/pexels-photo-4198023.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Date Palm Trees" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Get in touch for orders and inquiries</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>📱 WhatsApp Orders</h4>
+                        <p>+923002989768</p>
+                        <a href="https://wa.me/923002989768?text=Hello,%20I%20would%20like%20to%20inquire%20about%20your%20dates" class="whatsapp-btn">Chat on WhatsApp</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>📞 Phone</h4>
+                        <p>923002989768</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>📍 Location</h4>
+                        <p>Hasnain Traders<br>Rohri<br>Sukkur</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <h4>⏰ Business Hours</h4>
+                        <p>Mon - Sat: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h4>Send us a message</h4>
+                    <form id="contact-form">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🌴 Hasnain Traders</h3>
+                    <p>Your trusted source for premium quality dates from around the world.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home" data-scroll="home">Home</a></li>
+                        <li><a href="#products" data-scroll="products">Products</a></li>
+                        <li><a href="#about" data-scroll="about">About</a></li>
+                        <li><a href="#contact" data-scroll="contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘 Facebook</a>
+                        <a href="#" aria-label="Instagram">📷 Instagram</a>
+                        <a href="#" aria-label="Twitter">🐦 Twitter</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Hasnain Traders Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation and Mobile Menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            const navbar = document.getElementById('navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Mobile menu toggle
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('[data-scroll]').forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-scroll');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 70; // Account for navbar height
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Active navigation link highlighting
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-scroll') === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Fade in animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Add fade-in class to elements and observe them
+            const elementsToAnimate = document.querySelectorAll('.product-card, .about-content, .contact-content');
+            elementsToAnimate.forEach(el => {
+                el.classList.add('fade-in');
+                observer.observe(el);
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(contactForm);
+                const name = formData.get('name') || contactForm.querySelector('input[type="text"]').value;
+                const email = formData.get('email') || contactForm.querySelector('input[type="email"]').value;
+                const message = formData.get('message') || contactForm.querySelector('textarea').value;
+                
+                // Create WhatsApp message
+                const whatsappMessage = `Hello! I'm ${name} (${email}). ${message}`;
+                const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                // Open WhatsApp
+                window.open(whatsappUrl, '_blank');
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Show success message
+                alert('Thank you for your message! We will contact you soon via WhatsApp.');
+            });
+        });
+
+        // WhatsApp ordering function
+        function orderProduct(productName, price) {
+            // WhatsApp number (replace with your actual number)
+            const whatsappNumber = '1234567890'; // Replace with your WhatsApp number
+            
+            // Create the message
+            const message = `Hello! I want to order ${productName} (${price}). Please provide more details about availability and delivery.`;
+            
+            // Create WhatsApp URL
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            
+            // Open WhatsApp in a new tab/window
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
